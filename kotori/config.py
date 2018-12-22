@@ -68,7 +68,7 @@ class RouteConfig:
 @dataclass
 class TransformConfig:
     type: str
-    options: List[str]
+    options: List[str] = field(default_factory=list)
 
     @staticmethod
     def from_query(query: str) -> "TransformConfig":
@@ -85,7 +85,7 @@ class TransformConfig:
 @dataclass
 class StorageConfig:
     type: str
-    options: Dict[str, Any]
+    options: Dict[str, Any] = field(default_factory=dict)
 
 
 @dataclass

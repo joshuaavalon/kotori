@@ -1,0 +1,19 @@
+site_name: Kotori
+theme:
+  name: material
+  favicon: favicon.ico
+  logo: logo.svg
+  palette:
+    primary: blue grey
+    accent: blue grey
+
+repo_name: joshuaavalon/kotori
+repo_url: https://github.com/joshuaavalon/kotori
+
+extra:
+  social:
+    - type: github-alt
+      link: https://github.com/joshuaavalon/kotori
+
+nav:
+  - index.md
