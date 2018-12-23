@@ -2,7 +2,6 @@ from io import BytesIO, IOBase
 from typing import Optional
 
 import PIL
-from PIL import Image
 from PIL.Image import Image
 from flask import Response, abort, send_file
 
@@ -19,8 +18,8 @@ class Kotori:
         self.validate_config()
 
     def validate_config(self):
-        for key in Transformation.transformations.keys():
-            if key in self.config.transform.keys():
+        for key in Transformation.transformations:
+            if key in self.config.transform:
                 raise ConfigError(f"{key} cannot be used as a transform name.")
 
     def get(self, path: str) -> Response:

@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 from io import IOBase
-from os import PathLike
 from pathlib import Path
 from typing import Dict, Optional, Type
 

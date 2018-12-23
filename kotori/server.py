@@ -41,7 +41,7 @@ class KotoriServer(Flask):
             return
 
         sys.path.append(str(plugin_dir.absolute()))
-        for importer, package_name, _ in pkgutil.iter_modules([plugin_dir]):
+        for _, package_name, _ in pkgutil.iter_modules([plugin_dir]):
             if package_name not in sys.modules:
                 importlib.import_module(package_name)
 
@@ -58,5 +58,5 @@ class KotoriServer(Flask):
         return "", 404
 
     @staticmethod
-    def no_not_found(error: NotFound):
+    def no_not_found(_: NotFound):
         return "", 404

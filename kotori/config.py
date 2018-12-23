@@ -151,7 +151,7 @@ class ConfigLoader(ABC):
         if suffix not in cls.loaders:
             raise ConfigError(f"{suffix} is a unknown format")
         loader = cls.loaders[suffix]()
-        config = loader._load(path)
+        config = loader._load(path)  # pylint: disable=protected-access
         return config
 
     @abstractmethod

@@ -1,6 +1,7 @@
 import logging.config
 from os import environ
 
+# pylint: disable=C0103
 is_development = environ.get("FLASK_ENV") == "development"
 
 logging.config.dictConfig({
