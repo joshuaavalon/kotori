@@ -14,7 +14,6 @@ from kotori.transform import Transformation
 class Kotori:
     def __init__(self, config: Config):
         self.config = config
-        print(config)
         self.validate_config()
 
     def validate_config(self):

@@ -93,6 +93,7 @@ class Config:
     storage: Dict[str, StorageConfig]
     transform: Dict[str, List[TransformConfig]]
     route: Dict[str, RouteConfig]
+    cache: Dict[str, Any]
 
     def storage_of(self, key: ItemKey) -> StorageConfig:
         route = self.route_of(key)
@@ -178,7 +179,8 @@ class DictConfigLoader(ConfigLoader):
         return Config(
             storage=storage,
             transform=transform,
-            route=route
+            route=route,
+            cache=config.get("cache", {})
         )
 
     @abstractmethod

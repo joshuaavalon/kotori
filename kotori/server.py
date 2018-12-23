@@ -6,9 +6,10 @@ from os import environ
 from pathlib import Path
 
 from flask import Flask, abort
+from flask_caching import Cache
 from werkzeug.exceptions import NotFound
 
-from kotori.config import ConfigLoader
+from kotori.config import Config, ConfigLoader
 from kotori.core import Kotori
 
 __all__ = ["KotoriServer"]
@@ -27,7 +28,20 @@ class KotoriServer(Flask):
         if config is None:
             raise ValueError(f"{config_path} cannot be loaded.")
         self.kotori = Kotori(config)
-        self.route("/<path:path>", methods=["GET"])(self.get_image)
+        self._init_cache(config)
+        self._init_path()
+
+    def _init_cache(self, config: Config):
+        if config.cache.get("CACHE_TYPE", "null") == "null":
+            return
+        self.cache = Cache(self, config=config.cache)
+        with self.app_context():
+            self.cache.clear()
+        self.get_image = self.cache.memoize()(self.get_image)
+
+    def _init_path(self):
+        self.get_image = self.route("/<path:path>",
+                                    methods=["GET"])(self.get_image)
         self.errorhandler(ValueError)(self.on_value_error)
         self.errorhandler(404)(self.no_not_found)
 
@@ -45,7 +59,7 @@ class KotoriServer(Flask):
             if package_name not in sys.modules:
                 importlib.import_module(package_name)
 
-    def get_image(self, path: str):
+    def get_image(self, path: str):  # pylint: disable=method-hidden
         if path == "favicon.ico":
             abort(404)
         response = self.kotori.get(f"/{path}")

@@ -34,3 +34,8 @@ route:
   "/private":
     storage: local
     transform:  false
+cache:
+  CACHE_TYPE: "filesystem"
+  CACHE_DIR: /var/www/html/cache
+  CACHE_DEFAULT_TIMEOUT: 600
+  CACHE_THRESHOLD: 100

@@ -3,5 +3,6 @@ Pillow>=5.3.0,<=6
 boto3>=1.9.70,<=2
 ruamel.yaml==0.15.81
 requests>=2.21.0,<=3
+flask-caching>=1.4.0
 werkzeug
 botocore
