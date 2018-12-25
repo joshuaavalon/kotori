@@ -17,3 +17,7 @@ extra:
 
 nav:
   - index.md
+  - configuration.md
+  - transform.md
+  - plugin.md
+  - docker.md

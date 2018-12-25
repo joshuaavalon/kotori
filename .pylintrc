@@ -252,7 +252,8 @@ good-names=i,
            is_development,
            logger,
            image_extensions,
-           s3
+           s3,
+           app
 
 # Include a hint for the correct naming format with invalid-name.
 include-naming-hint=no

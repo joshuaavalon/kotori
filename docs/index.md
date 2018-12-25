@@ -21,3 +21,9 @@ Kotori is designed to read from you storage and serve the image to through any C
 # Limitations
 
 * No support for files with the same name (`foo.png` and `foo.jpg` are considered the same file)
+
+# Deployment
+
+Please read on [FLask document](http://flask.pocoo.org/docs/1.0/deploying/) on how to deploy.
+
+Or you can use the [Docker image](docker.md).
