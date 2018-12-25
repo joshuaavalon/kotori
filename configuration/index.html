@@ -536,10 +536,10 @@ When <code>/foo/bar.jpg</code> is requested, <code>/var/www/html/image/bar.*</co
 <p>The key is the alias and the value should be an array of transformations definition.</p>
 <h2 id="route">Route</h2>
 <p>The configuration define which configuration to use based on path.
-It matches based how accurate it matched.</p>
+It matches the first one. The key is matched by regular expression.</p>
 <ul>
 <li><code>storage</code> - The name of the storage configuration that defined in storage section.</li>
-<li><code>transform</code> - The name of the transform configuration that defined in transform section or type of the transform. <code>true</code> to allow any transforms and <code>false</code> to decline all transforms.</li>
+<li><code>transform</code> - The name of the transform configuration that defined in transform section or type of the transform. <code>true</code> to allow any transforms and <code>false</code> to decline all transforms. It can be string, list or boolean.</li>
 <li><code>expire</code> - <code>max-age</code> for <code>Cache-Control</code> header.</li>
 <li><code>save</code> - Please refer to <a href="https://pillow.readthedocs.io/en/5.3.x/handbook/image-file-formats.html">Pillow</a> for formats and options.</li>
 </ul>
