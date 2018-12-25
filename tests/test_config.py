@@ -11,7 +11,6 @@ def test_item_key():
     assert key.suffix == ".jpg"
     assert key.folder == "/foo"
     assert key.name == "bar"
-    assert key.folders == ["/foo/bar", "/foo", "/"]
     assert key.format == "JPEG"
 
     with raises(ValueError):

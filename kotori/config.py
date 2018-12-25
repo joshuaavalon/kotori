@@ -1,9 +1,10 @@
 import json
+import re
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from os.path import splitext
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Type, Union
+from typing import Any, Dict, List, Optional, Tuple, Type, Union
 
 from PIL import Image
 from ruamel.yaml import YAML
@@ -25,7 +26,6 @@ class ItemKey:
     suffix: str = field(init=False)
     folder: str = field(init=False)
     name: str = field(init=False)
-    folders: List[str] = field(init=False)
     format: str = field(init=False)
 
     def __post_init__(self):
@@ -45,10 +45,6 @@ class ItemKey:
         self.suffix = suffix
         self.name = key_parts.pop()
         self.folder = f"/{'/'.join(key_parts)}"
-        self.folders = [self.key_path]
-        for i in range(0, len(key_parts) + 1):
-            num = len(key_parts) - i
-            self.folders.append("/" + "/".join(key_parts[:num]))
 
 
 @dataclass
@@ -92,7 +88,7 @@ class StorageConfig:
 class Config:
     storage: Dict[str, StorageConfig]
     transform: Dict[str, List[TransformConfig]]
-    route: Dict[str, RouteConfig]
+    route: List[Tuple[str, RouteConfig]]
     cache: Dict[str, Any]
 
     def storage_of(self, key: ItemKey) -> StorageConfig:
@@ -100,9 +96,9 @@ class Config:
         return self.storage[route.storage]
 
     def route_of(self, key: ItemKey) -> RouteConfig:
-        for folder in key.folders:
-            config = self.route.get(folder)
-            if config is not None:
+        for route in self.route:
+            pattern, config = route
+            if re.search(pattern, key.path) is not None:
                 return config
         raise ConfigError(f"Cannot find config for {key.path}")
 
@@ -173,9 +169,9 @@ class DictConfigLoader(ConfigLoader):
         transform = {}
         for name, cfg in config.get("transform", {}).items():
             transform[name] = [TransformConfig(**c) for c in cfg]
-        route = {}
+        route = []
         for name, cfg in config.get("route", {}).items():
-            route[name] = RouteConfig(**cfg)
+            route.append((name, RouteConfig(**cfg)))
         return Config(
             storage=storage,
             transform=transform,

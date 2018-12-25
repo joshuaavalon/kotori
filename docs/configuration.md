@@ -86,10 +86,10 @@ The key is the alias and the value should be an array of transformations definit
 ## Route
 
 The configuration define which configuration to use based on path.
-It matches based how accurate it matched.
+It matches the first one. The key is matched by regular expression.
 
 * `storage` - The name of the storage configuration that defined in storage section.
-* `transform` - The name of the transform configuration that defined in transform section or type of the transform. `true` to allow any transforms and `false` to decline all transforms.
+* `transform` - The name of the transform configuration that defined in transform section or type of the transform. `true` to allow any transforms and `false` to decline all transforms. It can be string, list or boolean.
 * `expire` - `max-age` for `Cache-Control` header.
 * `save` - Please refer to [Pillow](https://pillow.readthedocs.io/en/5.3.x/handbook/image-file-formats.html) for formats and options.
 

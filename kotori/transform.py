@@ -44,7 +44,8 @@ class ThumbnailTransformation(Transformation):
             width = int(args[0])
             height = int(args[1])
             resample = int(args[2]) if len(args) >= 3 else NEAREST
-            return image.thumbnail((width, height), resample)
+            image.thumbnail((width, height), resample)
+            return image
         except IndexError:
             raise ValueError("Not enough arguments")
 
